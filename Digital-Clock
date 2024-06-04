@@ -1,0 +1,45 @@
+from tkinter import *
+from datetime import datetime
+from time import strftime
+
+w = Tk()
+window_width = 750
+window_height = 200
+w.geometry(f'{window_width}x{window_height}')  
+w.minsize(window_width, window_height)
+w.title("Digital Clock")
+w.configure(bg='#0e1013')  
+
+label_font = ('Century Gothic', 8)
+time_font = ('Century Gothic', 60)
+bg_colour = '#0e1013'
+fg_colour = '#d3d3d3'
+label_fg_colour = '#7f7f7f'
+time_x = 50
+time_y = 35
+hours_x = 75
+minutes_x = 220
+seconds_x = 380
+day_x = 630
+label_y = 130
+
+
+def time():
+    current_time = strftime('%H : %M : %S')
+    day_abbr = datetime.today().strftime('%a').upper()
+    l1.config(text=f"{current_time} | {day_abbr}")
+    l1.after(1000, time)
+
+l1 = Label(w, font=time_font, bg=bg_colour, fg=fg_colour)
+l1.place(x=time_x, y=time_y)
+time()
+
+def create_label(text, x, y):
+    Label(w, font=label_font, bg=bg_colour, fg=label_fg_colour, text=text).place(x=x, y=y)
+
+create_label('HOURS', hours_x, label_y)
+create_label('MINUTES', minutes_x, label_y)
+create_label('SECONDS', seconds_x, label_y)
+create_label('DAY', day_x, label_y)
+
+w.mainloop()
